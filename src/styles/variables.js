@@ -1,0 +1,4 @@
+export const STATUS_BAR_HEIGHT = 20;
+export const NAV_BAR_HEIGHT = 44;
+export const HEADER_HEIGHT = STATUS_BAR_HEIGHT + NAV_BAR_HEIGHT;
+export const BITCOIN_BUTTON_SIZE = 30;

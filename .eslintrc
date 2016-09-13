@@ -1,0 +1,11 @@
+{
+    "extends": "airbnb",
+    "rules": {
+        "comma-dangle": 0,
+        "eol-last": 0,
+        "indent": ["error", 4, {
+            "SwitchCase": 1
+        }],
+        "jsx-quotes": 1
+    }
+}
