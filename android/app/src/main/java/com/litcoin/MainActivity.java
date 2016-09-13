@@ -1,6 +1,7 @@
 package com.litcoin;
 
 import com.facebook.react.ReactActivity;
+import com.brentvatne.react.ReactVideoPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.chirag.RNMail.RNMail;
 import com.lwansbrough.ReactCamera.ReactCamera;
@@ -41,6 +42,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new ReactVideoPackage(),
             new FBSDKPackage(),
             new RNMail(),
             new ReactCamera(),

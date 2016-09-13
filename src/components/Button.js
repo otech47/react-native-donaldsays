@@ -25,10 +25,10 @@ export default function Button(props) {
             activeOpacity={0.8}
             onPress={onPress}
             style={[
-                styles.root, 
+                styles.root,
                 {
                     backgroundColor: color,
-                    borderRadius: rounded ? 10 : 0
+                    borderRadius: rounded ? 4 : 0
                 },
                 style
             ]}
@@ -40,16 +40,12 @@ export default function Button(props) {
 
 const styles = StyleSheet.create({
     root: {
-        marginVertical: 8,
-        marginHorizontal: 30,
         ...mixins.row,
         ...mixins.center,
         paddingHorizontal: 8,
-        paddingVertical: 5,
-        position: 'relative'
+        paddingVertical: 5
     },
     text: {
-        ...fonts.button,
         color: colors.white
     }
 });

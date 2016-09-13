@@ -1,3 +1,7 @@
+import Dimensions from 'Dimensions';
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
+
 // fonts
 export const banner = {
     fontSize: 45,
@@ -12,9 +16,9 @@ export const display = {
 }
 
 export const header = {
-    fontSize: 24,
+    fontSize: height * .07,
     fontFamily: 'Avenir-Roman',
-    lineHeight: 38
+    lineHeight: height * .13
 }
 
 export const title = {

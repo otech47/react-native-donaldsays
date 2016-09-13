@@ -56,9 +56,7 @@ export function createShadow(level) {
 }
 
 export const arObject = {
-    position: 'absolute',
-    alignSelf: 'center',
-    backgroundColor: 'rgba(0,0,0,0)'
+    position: 'absolute'
 };
 
 export const center = {
@@ -73,7 +71,8 @@ export const selfStretch = {
 export const defaultPage = {
     flex: 1,
     backgroundColor: colors.white,
-    marginTop: variables.HEADER_HEIGHT
+    marginTop: variables.HEADER_HEIGHT,
+    position: 'relative'
 };
 
 export const fullSizePage = {
@@ -93,6 +92,22 @@ export const fullWidth = {
 
 export const fullHeight = {
     height: height - variables.HEADER_HEIGHT,
+};
+
+export const flex1 = {
+    flex: 1
+};
+
+export const flex2 = {
+    flex: 2
+};
+
+export const flex3 = {
+    flex: 3
+};
+
+export const flex4 = {
+    flex: 4
 };
 
 export function flex(direction = 'column', wrap = 'nowrap') {
