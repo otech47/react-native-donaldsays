@@ -1,6 +1,9 @@
 package com.litcoin;
 
 import com.facebook.react.ReactActivity;
+import com.remobile.toast.RCTToastPackage;
+import com.zmxv.RNSound.RNSoundPackage;
+import cl.json.RNSharePackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.chirag.RNMail.RNMail;
@@ -42,6 +45,9 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new RCTToastPackage(),
+            new RNSoundPackage(),
+            new RNSharePackage(),
             new ReactVideoPackage(),
             new FBSDKPackage(),
             new RNMail(),

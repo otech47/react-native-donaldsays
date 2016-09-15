@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import Base from './Base';
 
-import {mixins, colors} from '../styles';
+import { buttons, mixins, colors } from '../styles';
 import * as fonts from '../fonts';
 
 export default function Button(props) {
@@ -15,6 +15,8 @@ export default function Button(props) {
         children,
         color,
         onPress,
+        onPressIn,
+        onPressOut,
         rounded,
         style,
         textStyle
@@ -24,6 +26,8 @@ export default function Button(props) {
         <TouchableOpacity 
             activeOpacity={0.8}
             onPress={onPress}
+            onPressIn={onPressIn}
+            onPressOut={onPressOut}
             style={[
                 styles.root,
                 {
@@ -42,10 +46,9 @@ const styles = StyleSheet.create({
     root: {
         ...mixins.row,
         ...mixins.center,
-        paddingHorizontal: 8,
-        paddingVertical: 5
+        ...buttons.standard
     },
     text: {
-        color: colors.white
+        ...buttons.standardText
     }
 });

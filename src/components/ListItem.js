@@ -92,11 +92,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     header: {
-        ...fonts.menu,
+        ...fonts.romanSmall,
         color: colors.gray
     },
     text: {
-        ...fonts.text,
+        ...fonts.romanSmall,
         color: colors.darkGray,
         justifyContent: 'space-between'
     },

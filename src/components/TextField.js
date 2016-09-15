@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         margin: 8
     },
     input: {
-        ...fonts.text,
+        ...fonts.romanSmall,
         width: 256,
         height: 24,
         fontSize: 16

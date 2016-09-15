@@ -16,30 +16,31 @@ import Sound from 'react-native-sound';
 
 import { Gyroscope } from 'NativeModules';
 
-import Dimensions from 'Dimensions';
-
 import Base from './Base';
 import Button from './Button';
+import DaysToElection from './DaysToElection';
+import ElectoralVotes from './ElectoralVotes';
 import FireLaserButton from './FireLaserButton';
 
+import * as fonts from '../fonts';
 import { buttons, mixins, colors, variables } from '../styles';
 
-const height = Dimensions.get('window').height;
-const width = Dimensions.get('window').width;
+import { addElectoralVote, resetGame, subtractDayToElection } from '../actions/game';
 
 class ArGameDisplay extends Base {
     constructor(props) {
         super(props);
-        this.autoBind('handleFire', 'handleStop', 'handleStart');
+        this.autoBind('handleStop', 'handleGameStart', 'countDown');
         this.state = {
             x: 0,
             y: 0,
             z: 0,
             gyro: true,
-            sounds: {
-                laser: new Sound('laser.wav', Sound.MAIN_BUNDLE)
-            }
+            timeToStart: 3
         };
+    }
+    componentWillMount() {
+        this.props.resetGame();
     }
     componentDidMount() {
         // getPosition();
@@ -55,16 +56,11 @@ class ArGameDisplay extends Base {
             });
         });
         Gyroscope.startGyroUpdates();
-
+        this.countDown();
     }
     componentWillUnmount() {
+        console.log('ArGameDisplay componentWillUnmount')
         Gyroscope.stopGyroUpdates();
-    }
-    handleFire() {
-        this.state.sounds.laser.play((success) => {
-            console.log('laserplay')
-            console.log(success);
-        });
     }
     handleStop() {
         Gyroscope.stopGyroUpdates();
@@ -72,22 +68,33 @@ class ArGameDisplay extends Base {
             gyro: false
         });
     }
-    handleStart() {
-        Gyroscope.startGyroUpdates();
-        this.setState({
-            gyro: true
-        });
+    handleGameStart() {
+        // this.props.addElectoralVote();
+        // this.props.subtractDayToElection();
+    }
+    countDown() {
+        console.log('countDown: ' + this.state.timeToStart)
+        if(this.state.timeToStart > 0) {
+            setTimeout(() => {
+                this.setState({
+                    timeToStart: this.state.timeToStart - 1
+                });
+                this.countDown();
+            }, 1000);
+        } else {
+            this.handleGameStart();
+        }
     }
     render() {
         return (
-            <View style={{}}>
+            <View style={styles.root}>
                 <Camera
                     ref={(cam) => {
                         this.camera = cam;
                     }}
                     style={styles.preview}
-                    aspect={Camera.constants.Aspect.fill}>
-                    
+                    aspect={Camera.constants.Aspect.fill}
+                >
                     <View style={styles.arDisplay}>
                         <View 
                             style={styles.arTempDataContainer}
@@ -98,11 +105,11 @@ class ArGameDisplay extends Base {
                         </View>
 
                         <Image
-                            source={require('../assets/trumpface.png')}
+                            source={require('../assets/images/trumpface.png')}
                             style={styles.arTarget}
                         />
 
-                        <FireLaserButton/>
+                        <FireLaserButton showLaser style={styles.fireLaserButton}/>
 
                         <FontIcon 
                             name='crosshairs'
@@ -110,7 +117,18 @@ class ArGameDisplay extends Base {
                             style={styles.crosshairs}
                             color={colors.white}
                         />
-                        
+
+                        {this.state.timeToStart > 0 &&
+                            <View style={styles.countdownContainer} onPress={null}>
+                                <View style={styles.countdown}>
+                                    <Text style={styles.arText}>Wake up! Don't let him reach 270 votes before election day!</Text>
+                                    <Text style={styles.arCounter}>{this.state.timeToStart}</Text>
+                                </View>
+                            </View>
+                        }
+
+                        <ElectoralVotes type='reset'/>
+                        <DaysToElection type='reset'/>
 
                     </View>
                 </Camera>
@@ -126,6 +144,13 @@ const styles = StyleSheet.create({
         ...mixins.defaultPage,
         ...mixins.column
     },
+    arCounter: {
+        ...fonts.heavyLarge,
+        color: colors.white,
+        flex: 1,
+        padding: 5,
+        textAlign: 'center'
+    },
     arDisplay: {
         position: 'absolute',
         top: 0,
@@ -134,43 +159,79 @@ const styles = StyleSheet.create({
     },
     arTarget: {
         ...mixins.arObject,
-        top: height / 2,
-        left: (width / 2)
+        top: variables.SCREEN_HEIGHT / 2,
+        left: (variables.SCREEN_WIDTH / 2)
     },
     arTempDataContainer: {
         ...mixins.arObject,
-        left: (width / 2) - variables.BITCOIN_BUTTON_SIZE,
-        bottom: height / 4
+        left: (variables.SCREEN_WIDTH / 2) - variables.BITCOIN_BUTTON_SIZE,
+        bottom: variables.SCREEN_HEIGHT / 4
     },
     arText: {
+        ...fonts.romanMedium,
         color: colors.white,
+        flex: 1,
+        padding: 5,
+        textAlign: 'center'
+    },
+    countdownContainer: {
+        ...mixins.column,
+        ...mixins.arObject,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 15,
         backgroundColor: colors.darkGrayTransparent,
-        padding: 5
+        height: variables.SCREEN_HEIGHT,
+        width: variables.SCREEN_WIDTH,
+        top: 0,
+        left: 0
+    },
+    coutdown: {
+        flex: 1,
+        ...mixins.column
     },
     crosshairs: {
         ...mixins.arObject,
         backgroundColor: 'rgba(0,0,0,0)',
-        top: (height - variables.CROSSHAIRS_SIZE) / 2,
-        left: (width - variables.CROSSHAIRS_SIZE) / 2
+        top: (variables.SCREEN_HEIGHT - variables.CROSSHAIRS_SIZE) / 2,
+        left: (variables.SCREEN_WIDTH - variables.CROSSHAIRS_SIZE) / 2
+    },
+    fireButton: {
+        height: variables.BUTTON_HEIGHT,
+        width: variables.BUTTON_WIDTH,
+        position: 'absolute',
+        top: variables.SCREEN_HEIGHT - variables.BUTTON_HEIGHT * 2,
+        left: (variables.SCREEN_WIDTH - variables.BUTTON_WIDTH) / 2
+    },
+    fireLaserButton: {
+        height: variables.SCREEN_HEIGHT / 2,
+        width: variables.SCREEN_WIDTH,
+        position: 'absolute',
+        top: variables.SCREEN_HEIGHT / 2,
+        left: 0
     },
     preview: {
         position: 'absolute',
-        height: height,
-        width: width
+        height: variables.SCREEN_HEIGHT,
+        width: variables.SCREEN_WIDTH
     }
-    
     
 });
 
 
 
-function mapStateToProps({auth, discover, environment, wallet}) {
+function mapStateToProps({ game }) {
     return {
+        ...game
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        addElectoralVote: () => dispatch(addElectoralVote()),
+        subtractDayToElection: () => dispatch(subtractDayToElection()),
+        resetGame: () => dispatch(resetGame())
     };
 }
 

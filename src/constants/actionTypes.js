@@ -1,5 +1,8 @@
-export const CHANGE_IS_LOADING = 'CHANGE_IS_LOADING';
+export const ADD_VOTE = 'ADD_VOTE';
 export const CHANGE_IS_ANIMATING = 'CHANGE_IS_ANIMATING';
+export const GAME_OVER = 'GAME_OVER'
 export const FOCUS = 'FOCUS';
-export const HIDE_TIPS = 'HIDE_TIPS';
-export const SHOW_TIPS = 'SHOW_TIPS';
+export const INSTRUCTIONS_OVERLAY = 'INSTRUCTIONS_OVERLAY';
+export const PLAY_FIRST_TIME = 'PLAY_FIRST_TIME';
+export const RESET_GAME = 'RESET_GAME'
+export const SUBTRACT_DAY = 'SUBTRACT_DAY';

@@ -1,6 +1,12 @@
 rootProject.name = 'Setcoins'
 
 include ':app'
+include ':react-native-toast'
+project(':react-native-toast').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-toast/android')
+include ':react-native-sound'
+project(':react-native-sound').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sound/android')
+include ':react-native-share'
+project(':react-native-share').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-share/android')
 include ':react-native-video'
 project(':react-native-video').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-video/android')
 include ':react-native-fbsdk'

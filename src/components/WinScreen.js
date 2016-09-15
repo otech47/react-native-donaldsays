@@ -11,7 +11,6 @@ import Video from 'react-native-video';
 
 import Base from './Base';
 import Button from './Button';
-import InstructionsOverlay from './InstructionsOverlay';
 
 import * as fonts from '../fonts';
 import { buttons, mixins, colors, variables } from '../styles';
@@ -25,15 +24,15 @@ class LandingPage extends Base {
     }
     componentDidMount() {
 
+
     }
     componentWillUnmount() {
-        console.log('LandingPage componentWillUnmount')
+
     }
     handleHowToPlay() {
 
     }
     handlePlay() {
-        console.log('handlePlay: ' + this.props.firstPlay)
         if(this.props.firstPlay) {
             this.props.instructionsOverlay(true)
         } else {
@@ -51,7 +50,7 @@ class LandingPage extends Base {
                     muted
                     repeat
                     resizeMode='cover'
-                    onLoad={() => { console.log('video loaded') }}
+                    onLoad={() => { console.log('video loaded') })}
                     source={{uri: 'landingvideo'}}
                     style={styles.backgroundVideo}
                 />
@@ -60,14 +59,14 @@ class LandingPage extends Base {
                     <Text style={styles.header}>DonaldSays</Text>
                     <Image
                         style={styles.image}
-                        source={require('../assets/images/donaldsays_logo_transparent.png')}/>
+                        source={require('../assets/images/donaldsays_logo_transparent.png')} />
 
                     <Button 
                         rounded
                         style={styles.button}
                         textStyle={styles.buttonText}
                         onPress={this.handlePlay}
-                        color={colors.red}
+                        color={colors.blue}
                     >
                         Play
                     </Button>
@@ -95,7 +94,11 @@ const styles = StyleSheet.create({
     },
     button: {
         ...buttons.play,
+        fontSize: variables.SCREEN_HEIGHT * .05,
         marginVertical: variables.SCREEN_HEIGHT * .12,
+    },
+    buttonText: {
+        fontSize: variables.SCREEN_HEIGHT * .04
     },
     backgroundVideo: {
         position: 'absolute',
@@ -105,14 +108,13 @@ const styles = StyleSheet.create({
         width: variables.SCREEN_WIDTH
     },
     header: {
-        ...fonts.romanLarge,
+        ...fonts.header,
         color: colors.white,
         marginTop: variables.SCREEN_HEIGHT * .08
     },
     howToPlay: {
         ...fonts.romanSmall,
         color: colors.white,
-        padding: 15,
         marginVertical: variables.SCREEN_HEIGHT * .04
     },
     image: {
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
     }
 });
 
-function mapStateToProps({ environment }) {
+function mapStateToProps({auth, discover, environment, wallet}) {
     return {
         ...environment
     };

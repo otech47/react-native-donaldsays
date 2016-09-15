@@ -17,7 +17,7 @@ export default function TextFieldError({children}) {
 
 const styles = StyleSheet.create({
     root: {
-        ...fonts.caption,
+        ...fonts.romanSmall,
         color: colors.red
     }
 });

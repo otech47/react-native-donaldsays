@@ -120,6 +120,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-toast')
+    compile project(':react-native-sound')
+    compile project(':react-native-share')
     compile project(':react-native-video')
     compile project(':react-native-fbsdk')
     compile project(':react-native-mail')

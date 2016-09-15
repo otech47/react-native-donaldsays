@@ -24,4 +24,5 @@ export const messengerBlue = '#0080ff';
 export const transparent = 'rgba(0, 0, 0, 0)';
 export const lightGrayTransparent = 'rgba(226, 229, 239, 0.3)';
 export const grayTransparent = 'rgba(152, 164, 173, 0.3)';
-export const darkGrayTransparent = 'rgba(34, 54, 65, 0.7)';
+export const darkGrayTransparent = 'rgba(34, 54, 65, 0.4)';
+export const darkGrayMoreTransparent = 'rgba(34, 54, 65, 0.7)';

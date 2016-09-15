@@ -1,9 +1,5 @@
 import * as variables from './variables';
 import * as colors from './colors';
-import Dimensions from 'Dimensions';
-
-const height = Dimensions.get('window').height;
-const width = Dimensions.get('window').width;
 
 export function createShadow(level) {
     switch (level) {
@@ -70,28 +66,27 @@ export const selfStretch = {
 
 export const defaultPage = {
     flex: 1,
-    backgroundColor: colors.white,
-    marginTop: variables.HEADER_HEIGHT,
+    backgroundColor: colors.transparent,
     position: 'relative'
 };
 
 export const fullSizePage = {
-    height: height - variables.HEADER_HEIGHT,
-    width: width
+    height: variables.SCREEN_HEIGHT - variables.HEADER_HEIGHT,
+    width: variables.SCREEN_WIDTH
 };
 
 export const centerAbsolute = {
     position: 'absolute',
-    left: width/2,
-    top: (height - variables.HEADER_HEIGHT)/2
+    left: variables.SCREEN_WIDTH/2,
+    top: (variables.SCREEN_HEIGHT - variables.HEADER_HEIGHT)/2
 };
 
 export const fullWidth = {
-    width: width
+    width: variables.SCREEN_WIDTH
 };
 
 export const fullHeight = {
-    height: height - variables.HEADER_HEIGHT,
+    height: variables.SCREEN_HEIGHT - variables.HEADER_HEIGHT,
 };
 
 export const flex1 = {

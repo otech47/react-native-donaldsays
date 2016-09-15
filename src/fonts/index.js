@@ -3,77 +3,39 @@ const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
 // fonts
-export const banner = {
-    fontSize: 45,
-    fontFamily: 'Avenir-Light',
-    lineHeight: 64
-}
 
-export const display = {
-    fontSize: 30,
-    fontFamily: 'Avenir-Light',
-    lineHeight: 41
-}
-
-export const header = {
-    fontSize: height * .07,
+export const romanSmall = {
     fontFamily: 'Avenir-Roman',
+    fontSize: height * .026,
+    lineHeight: height * .037
+}
+
+export const romanMedium = {
+    fontFamily: 'Avenir-Roman',
+    fontSize: height * .035,
+    lineHeight: height * .045
+}
+
+export const romanLarge = {
+    fontFamily: 'Avenir-Roman',
+    fontSize: height * .07,
     lineHeight: height * .13
 }
 
-export const title = {
-    fontSize: 20,
-    fontFamily: 'Avenir-Roman',
-    lineHeight: 32
+export const heavySmall = {
+    fontFamily: 'Avenir-Heavy',
+    fontSize: height * .023,
+    lineHeight: height * .034
 }
 
-export const button = {
-    fontSize: 16,
-    fontFamily: 'Avenir-Book',
-    lineHeight: 22
+export const heavyMedium = {
+    fontFamily: 'Avenir-Heavy',
+    fontSize: height * .031,
+    lineHeight: height * .042
 }
 
-export const text = {
-    fontSize: 16,
-    fontFamily: 'Avenir-Roman',
-    lineHeight: 22
-}
-
-export const caption = {
-    fontSize: 12,
-    fontFamily: 'Avenir-Roman',
-    lineHeight: 14
-}
-
-export const menu = {
-    fontSize: 14,
-    fontFamily: 'Avenir-Medium',
-    lineHeight: 22
-}
-
-export const navTitle = {
-    fontSize: 35,
-    fontFamily: 'Avenir-Medium',
-    lineHeight: 52
-}
-
-export const tTitle = {
-    fontSize: 16,
-    fontFamily: 'Avenir-Roman',
-}
-
-export const tDate = {
-    fontSize: 12,
-    fontFamily: 'Avenir-Medium'
-}
-
-export const tType ={
-    fontSize: 12,
-    fontFamily: 'Avenir-BookOblique'
-}
-
-
-export const tAmount = {
-    fontSize: 14,
-    fontFamily: 'Avenir-Book'
+export const heavyLarge = {
+    fontFamily: 'Avenir-Heavy',
+    fontSize: height * .07,
+    lineHeight: height * .13
 }

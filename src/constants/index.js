@@ -5,3 +5,4 @@ const API_BASE_URL = 'https://api.setmine.com';
 
 export const API_ROOT = `${API_BASE_URL}/v/${API_VERSION}/`;
 export const GRAPH_API_ROOT = `${API_ROOT}/graph`;
+export const HARAMBE_SHIRT_LINK = 'https://teespring.com/dems-out-for-harambe-2016#pid=2&cid=576&sid=front';

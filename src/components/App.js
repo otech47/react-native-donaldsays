@@ -18,7 +18,9 @@ const logger = createLogger({
     collapsed: true
 });
 
-const middleware = [thunk, logger];
+// const middleware = [thunk, logger];
+const middleware = [thunk];
+
 const store = compose(
     applyMiddleware(...middleware)
 )(createStore)(reducers);
@@ -26,12 +28,13 @@ const store = compose(
 // actions
 // import { initAuth } from '../actions/auth';
 // import { fetchBtcPrice } from '../actions/wallet';
-// import { loginOverlay } from '../actions/environment';
+import { checkFirstPlay } from '../actions/environment';
 
 // components
 import Base from './Base';
 import ArGameDisplay from './ArGameDisplay';
 import LandingPage from './LandingPage';
+import GameOver from './GameOver';
 
 const styles = StyleSheet.create({
     root: {
@@ -54,6 +57,7 @@ class App extends Base {
         // this.autoBind('');
     }
     componentWillMount() {
+        this.props.checkFirstPlay();
     }
     getChildContext() {
         return {
@@ -72,11 +76,17 @@ class App extends Base {
                     <Scene
                         key='LandingPage'
                         component={LandingPage}
-                        initial
+                        
                     />
                     <Scene
                         key='ArGameDisplay'
                         component={ArGameDisplay}
+                        initial
+                    />
+                    <Scene
+                        key='GameOver'
+                        component={GameOver}
+                        
                     />
                 </Scene>
             </ReduxRouter>
@@ -85,24 +95,14 @@ class App extends Base {
 }
 
 // injects global props at root level
-function mapStateToProps({environment, auth}) {
+function mapStateToProps() {
     return {
-        ...environment,
-        ...auth
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        initAuth() {
-            dispatch(initAuth())  
-        },
-        fetchBtcPrice() {
-            dispatch(fetchBtcPrice())
-        },
-        loginOverlay(show) {
-            dispatch(loginOverlay(show));
-        }
+        checkFirstPlay: () => dispatch(checkFirstPlay()),
     };
 }
 
