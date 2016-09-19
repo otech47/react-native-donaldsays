@@ -19,25 +19,25 @@ import * as fonts from '../fonts';
 import { buttons, mixins, colors, variables } from '../styles';
 import { HARAMBE_SHIRT_LINK } from '../constants';
 
+import { playSound, stopSound } from '../scripts/sounds';
+
+import { clearArObjects } from '../actions/augmented';
+import { resetGame } from '../actions/game';
+
 class GameOver extends Base {
     constructor(props) {
         super(props);
-        this.state = {
-            sounds: {
-                win: new Sound('win.wav', Sound.MAIN_BUNDLE),
-                lose: new Sound('lose.wav', Sound.MAIN_BUNDLE)
-            }
-        };
     }
     componentWillUnmount() {
         console.log('GameOver componentWillUnmount')
-
+        this.props.resetGame();
+        this.props.clearArObjects();
     }
     componentDidMount() {
         if(this.props.didWin) {
-            this.state.sounds.win.play();
+            playSound('win');
         } else {
-            this.state.sounds.lose.play();
+            playSound('lose');
         }
     }
     handleShare() {
@@ -169,6 +169,8 @@ function mapStateToProps({ game }) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        clearArObjects: () => dispatch(clearArObjects()),
+        resetGame: () => dispatch(resetGame())
     };
 }
 

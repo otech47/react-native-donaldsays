@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import {
     DeviceEventEmitter,
-    Image,
     StyleSheet,
     Text,
     View
@@ -13,6 +12,7 @@ import FontIcon from 'react-native-vector-icons/FontAwesome';
 
 import Camera from 'react-native-camera';
 import Sound from 'react-native-sound';
+import timer from 'react-native-timer';
 
 import { Gyroscope } from 'NativeModules';
 
@@ -21,69 +21,89 @@ import Button from './Button';
 import DaysToElection from './DaysToElection';
 import ElectoralVotes from './ElectoralVotes';
 import FireLaserButton from './FireLaserButton';
+import FloatingArObject from './FloatingArObject';
 
 import * as fonts from '../fonts';
 import { buttons, mixins, colors, variables } from '../styles';
 
+import { addArObject, clearArObjects, updateGyroData } from '../actions/augmented';
 import { addElectoralVote, resetGame, subtractDayToElection } from '../actions/game';
+
+import {
+    TIME_TO_NEXT_AR,
+    GYRO_MOVE_THRESHOLD_X,
+    GYRO_MOVE_THRESHOLD_Y,
+    MOVE_FACTOR_X,
+    MOVE_FACTOR_Y
+} from '../constants';
 
 class ArGameDisplay extends Base {
     constructor(props) {
         super(props);
-        this.autoBind('handleStop', 'handleGameStart', 'countDown');
+        this.autoBind('handleGameStart', 'countDown', 'startArObjectTimer');
         this.state = {
-            x: 0,
-            y: 0,
-            z: 0,
-            gyro: true,
             timeToStart: 3
         };
     }
     componentWillMount() {
-        this.props.resetGame();
+        
     }
     componentDidMount() {
-        // getPosition();
+        this.props.resetGame();
+        this.props.clearArObjects();
         console.log('componentDidMount')
-        Gyroscope.setGyroUpdateInterval(0.1); // in seconds
-        console.log(Gyroscope)
-        DeviceEventEmitter.addListener('GyroData', (data) => {
-            // console.log(data.rotationRate);
-            this.setState({
-                x: data.rotationRate.x.toFixed(5),
-                y: data.rotationRate.y.toFixed(5),
-                z: data.rotationRate.z.toFixed(5)
-            });
-        });
+        Gyroscope.setGyroUpdateInterval(0.05); // in seconds
+        DeviceEventEmitter.addListener('GyroData', this.props.updateGyroData);
         Gyroscope.startGyroUpdates();
         this.countDown();
+        console.log('top: ' + variables.CROSSHAIRS_POSITION_TOP)
+        console.log('bottom: ' + variables.CROSSHAIRS_POSITION_BOTTOM)
+        console.log('left: ' + variables.CROSSHAIRS_POSITION_LEFT)
+        console.log('right: ' + variables.CROSSHAIRS_POSITION_RIGHT)
+
     }
     componentWillUnmount() {
         console.log('ArGameDisplay componentWillUnmount')
         Gyroscope.stopGyroUpdates();
+        timer.clearInterval(this, 'arObjectGenerator');
+        timer.clearInterval(this, 'countdown');
     }
-    handleStop() {
-        Gyroscope.stopGyroUpdates();
-        this.setState({
-            gyro: false
-        });
-    }
-    handleGameStart() {
-        // this.props.addElectoralVote();
-        // this.props.subtractDayToElection();
-    }
-    countDown() {
-        console.log('countDown: ' + this.state.timeToStart)
-        if(this.state.timeToStart > 0) {
-            setTimeout(() => {
-                this.setState({
-                    timeToStart: this.state.timeToStart - 1
-                });
-                this.countDown();
-            }, 1000);
-        } else {
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.timeToStart != this.state.timeToStart && this.state.timeToStart <= 0) {
+            timer.clearInterval(this, 'countdown');
             this.handleGameStart();
         }
+    }
+    countDown() {
+        timer.setInterval(this, 'countdown', () => {
+            this.setState({
+                timeToStart: this.state.timeToStart - 1
+            });
+        }, 1000);
+    }
+    handleGameStart() {
+        this.props.addElectoralVote();
+        this.props.subtractDayToElection();
+        this.startArObjectTimer();
+    }
+    startArObjectTimer() {
+
+        let timeToNextAr = Math.min(this.props.arObjects.length * 100 + TIME_TO_NEXT_AR / 2, TIME_TO_NEXT_AR);
+
+        timer.clearInterval(this, 'arObjectGenerator');
+        timer.setInterval(this, 'arObjectGenerator', () => {
+            let startingPosX = Math.random() * variables.SCREEN_WIDTH * 2 * (Math.random() > 0.5 ? -1 : 1);
+            let startingPosY = Math.random() * variables.SCREEN_HEIGHT * .75 * (Math.random() > 0.5 ? -1 : 1) + variables.SCREEN_HEIGHT / 4;
+
+            this.props.addArObject({
+                imageUrl: '../assets/images/trump.png',
+                hit: false,
+                startingPosX: startingPosX,
+                startingPosY: startingPosY
+            });
+            this.startArObjectTimer();
+
+        }, timeToNextAr);
     }
     render() {
         return (
@@ -96,20 +116,33 @@ class ArGameDisplay extends Base {
                     aspect={Camera.constants.Aspect.fill}
                 >
                     <View style={styles.arDisplay}>
-                        <View 
-                            style={styles.arTempDataContainer}
-                        >
-                            <Text style={styles.arText}>x: {this.state.x}</Text>
-                            <Text style={styles.arText}>y: {this.state.y}</Text>
-                            <Text style={styles.arText}>z: {this.state.z}</Text>
-                        </View>
+                        {this.props.trumpExplode && 
+                            <Image
+                                source={require('../assets/images/trumpexplode.png')}
+                                resizeMode='contain'
+                                style={styles.trumpExplode}
+                            />
+                        }
 
-                        <Image
-                            source={require('../assets/images/trumpface.png')}
-                            style={styles.arTarget}
+                        {
+                            this.props.arObjects.map((arObj, i) => {
+                                return (
+                                    <FloatingArObject
+                                        key={'arObject-' + i}
+                                        index={i}
+                                        imageUrl={arObj.imageUrl}
+                                        hit={arObj.hit}
+                                        startingPosX={arObj.startingPosX}
+                                        startingPosY={arObj.startingPosY}
+                                    />
+                                )
+                            })
+                        }
+
+                        <FireLaserButton
+                            showLaser 
+                            style={styles.fireLaserButton}
                         />
-
-                        <FireLaserButton showLaser style={styles.fireLaserButton}/>
 
                         <FontIcon 
                             name='crosshairs'
@@ -120,10 +153,8 @@ class ArGameDisplay extends Base {
 
                         {this.state.timeToStart > 0 &&
                             <View style={styles.countdownContainer} onPress={null}>
-                                <View style={styles.countdown}>
-                                    <Text style={styles.arText}>Wake up! Don't let him reach 270 votes before election day!</Text>
-                                    <Text style={styles.arCounter}>{this.state.timeToStart}</Text>
-                                </View>
+                                <Text style={[styles.arText, styles.instructions]}>Wake up! Don't let him reach 270 votes before election day!</Text>
+                                <Text style={[styles.arText, styles.arCounter]}>{this.state.timeToStart}</Text>
                             </View>
                         }
 
@@ -146,26 +177,15 @@ const styles = StyleSheet.create({
     },
     arCounter: {
         ...fonts.heavyLarge,
-        color: colors.white,
-        flex: 1,
-        padding: 5,
-        textAlign: 'center'
+        position: 'absolute',
+        top: variables.SCREEN_HEIGHT / 2,
+        width: variables.SCREEN_WIDTH
     },
     arDisplay: {
         position: 'absolute',
         top: 0,
         left: 0,
         flex: 1
-    },
-    arTarget: {
-        ...mixins.arObject,
-        top: variables.SCREEN_HEIGHT / 2,
-        left: (variables.SCREEN_WIDTH / 2)
-    },
-    arTempDataContainer: {
-        ...mixins.arObject,
-        left: (variables.SCREEN_WIDTH / 2) - variables.BITCOIN_BUTTON_SIZE,
-        bottom: variables.SCREEN_HEIGHT / 4
     },
     arText: {
         ...fonts.romanMedium,
@@ -180,29 +200,20 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 15,
         backgroundColor: colors.darkGrayTransparent,
         height: variables.SCREEN_HEIGHT,
         width: variables.SCREEN_WIDTH,
         top: 0,
         left: 0
     },
-    coutdown: {
-        flex: 1,
-        ...mixins.column
-    },
     crosshairs: {
         ...mixins.arObject,
-        backgroundColor: 'rgba(0,0,0,0)',
-        top: (variables.SCREEN_HEIGHT - variables.CROSSHAIRS_SIZE) / 2,
-        left: (variables.SCREEN_WIDTH - variables.CROSSHAIRS_SIZE) / 2
-    },
-    fireButton: {
-        height: variables.BUTTON_HEIGHT,
-        width: variables.BUTTON_WIDTH,
-        position: 'absolute',
-        top: variables.SCREEN_HEIGHT - variables.BUTTON_HEIGHT * 2,
-        left: (variables.SCREEN_WIDTH - variables.BUTTON_WIDTH) / 2
+        ...mixins.column,
+        justifyContent: 'center',
+        top: variables.CROSSHAIRS_POSITION_TOP,
+        left: variables.CROSSHAIRS_POSITION_LEFT,
+        width: variables.CROSSHAIRS_SIZE,
+        height: variables.CROSSHAIRS_SIZE
     },
     fireLaserButton: {
         height: variables.SCREEN_HEIGHT / 2,
@@ -211,27 +222,46 @@ const styles = StyleSheet.create({
         top: variables.SCREEN_HEIGHT / 2,
         left: 0
     },
+    instructions: {
+        position: 'absolute',
+        left: 0,
+        bottom: variables.SCREEN_HEIGHT / 2,
+        width: variables.SCREEN_WIDTH
+    },
     preview: {
         position: 'absolute',
         height: variables.SCREEN_HEIGHT,
         width: variables.SCREEN_WIDTH
+    },
+    trumpExplode: {
+        ...mixins.arObject,
+        ...mixins.column,
+        justifyContent: 'center',
+        top: variables.CROSSHAIRS_POSITION_TOP,
+        left: variables.CROSSHAIRS_POSITION_LEFT,
+        width: variables.CROSSHAIRS_SIZE,
+        height: variables.CROSSHAIRS_SIZE
     }
     
 });
 
 
 
-function mapStateToProps({ game }) {
+function mapStateToProps({ augmented, game }) {
     return {
+        ...augmented,
         ...game
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        addArObject: (arObj) => dispatch(addArObject(arObj)),
         addElectoralVote: () => dispatch(addElectoralVote()),
+        clearArObjects: () => dispatch(clearArObjects()),
         subtractDayToElection: () => dispatch(subtractDayToElection()),
-        resetGame: () => dispatch(resetGame())
+        resetGame: () => dispatch(resetGame()),
+        updateGyroData: (data) => dispatch(updateGyroData(data))
     };
 }
 

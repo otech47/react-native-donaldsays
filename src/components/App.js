@@ -86,7 +86,6 @@ class App extends Base {
                     <Scene
                         key='GameOver'
                         component={GameOver}
-                        
                     />
                 </Scene>
             </ReduxRouter>

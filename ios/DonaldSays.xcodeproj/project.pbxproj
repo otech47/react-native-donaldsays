@@ -32,6 +32,14 @@
 		510F5CE51D88DCF100C52000 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 510F5CE41D88DCF100C52000 /* Social.framework */; };
 		510F5D391D89BACD00C52000 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 510F5D371D89BACD00C52000 /* lose.wav */; };
 		510F5D3A1D89BACD00C52000 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 510F5D381D89BACD00C52000 /* win.wav */; };
+		5116DE401D8AF33F0049DE5B /* fired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5116DE3F1D8AF33F0049DE5B /* fired.mp3 */; };
+		513800561D901C99001524FD /* bigchina.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5138004F1D901C99001524FD /* bigchina.mp3 */; };
+		513800571D901C99001524FD /* bomb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 513800501D901C99001524FD /* bomb.mp3 */; };
+		513800581D901C99001524FD /* founder.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 513800511D901C99001524FD /* founder.m4a */; };
+		513800591D901C99001524FD /* mexicans.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 513800521D901C99001524FD /* mexicans.m4a */; };
+		5138005A1D901C99001524FD /* oyaye.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 513800531D901C99001524FD /* oyaye.mp3 */; };
+		5138005B1D901C99001524FD /* rich.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 513800541D901C99001524FD /* rich.mp3 */; };
+		5138005C1D901C99001524FD /* titties.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 513800551D901C99001524FD /* titties.m4a */; };
 		5153DF7B1D5BB0C00078C0A5 /* libRNMotionManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153DF771D5BB08F0078C0A5 /* libRNMotionManager.a */; };
 		612765C26785496EB7A16C53 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFFE2918C7E7440698F2BF0C /* FontAwesome.ttf */; };
 		6793E0501D3D7696009AC990 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6793E04F1D3D767F009AC990 /* libART.a */; };
@@ -221,6 +229,14 @@
 		510F5CE41D88DCF100C52000 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		510F5D371D89BACD00C52000 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = lose.wav; path = ../src/assets/sounds/lose.wav; sourceTree = "<group>"; };
 		510F5D381D89BACD00C52000 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = win.wav; path = ../src/assets/sounds/win.wav; sourceTree = "<group>"; };
+		5116DE3F1D8AF33F0049DE5B /* fired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fired.mp3; sourceTree = "<group>"; };
+		5138004F1D901C99001524FD /* bigchina.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bigchina.mp3; sourceTree = "<group>"; };
+		513800501D901C99001524FD /* bomb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bomb.mp3; sourceTree = "<group>"; };
+		513800511D901C99001524FD /* founder.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = founder.m4a; sourceTree = "<group>"; };
+		513800521D901C99001524FD /* mexicans.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = mexicans.m4a; sourceTree = "<group>"; };
+		513800531D901C99001524FD /* oyaye.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = oyaye.mp3; sourceTree = "<group>"; };
+		513800541D901C99001524FD /* rich.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rich.mp3; sourceTree = "<group>"; };
+		513800551D901C99001524FD /* titties.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = titties.m4a; sourceTree = "<group>"; };
 		5153DF611D5BB08F0078C0A5 /* RNMotionManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMotionManager.xcodeproj; path = "../node_modules/react-native-motion-manager/RNMotionManager.xcodeproj"; sourceTree = "<group>"; };
 		619E4A23ED7244A498BC4DA4 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		6793E04A1D3D767F009AC990 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
@@ -368,8 +384,16 @@
 				619E4A23ED7244A498BC4DA4 /* Zocial.ttf */,
 				510F5CB81D88AFDF00C52000 /* laser.wav */,
 				510F5D371D89BACD00C52000 /* lose.wav */,
+				5116DE3F1D8AF33F0049DE5B /* fired.mp3 */,
 				510F5D381D89BACD00C52000 /* win.wav */,
 				510F5CBA1D88B2D900C52000 /* landingvideo.mp4 */,
+				5138004F1D901C99001524FD /* bigchina.mp3 */,
+				513800501D901C99001524FD /* bomb.mp3 */,
+				513800511D901C99001524FD /* founder.m4a */,
+				513800521D901C99001524FD /* mexicans.m4a */,
+				513800531D901C99001524FD /* oyaye.mp3 */,
+				513800541D901C99001524FD /* rich.mp3 */,
+				513800551D901C99001524FD /* titties.m4a */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -818,15 +842,23 @@
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				4550A7D9640C4320A334518D /* Entypo.ttf in Resources */,
 				510F5D391D89BACD00C52000 /* lose.wav in Resources */,
+				5138005C1D901C99001524FD /* titties.m4a in Resources */,
+				513800591D901C99001524FD /* mexicans.m4a in Resources */,
+				513800571D901C99001524FD /* bomb.mp3 in Resources */,
 				C172BE0B2A12486885F1BF95 /* EvilIcons.ttf in Resources */,
+				5116DE401D8AF33F0049DE5B /* fired.mp3 in Resources */,
 				612765C26785496EB7A16C53 /* FontAwesome.ttf in Resources */,
+				5138005A1D901C99001524FD /* oyaye.mp3 in Resources */,
 				510F5D3A1D89BACD00C52000 /* win.wav in Resources */,
+				513800581D901C99001524FD /* founder.m4a in Resources */,
 				86A3BF00971C48D8A9D4AAA2 /* Foundation.ttf in Resources */,
 				510F5CB91D88AFDF00C52000 /* laser.wav in Resources */,
 				FDDC11AF71DD4210BE74D115 /* Ionicons.ttf in Resources */,
 				3261E648E6EC45D2BD16E32F /* MaterialIcons.ttf in Resources */,
+				5138005B1D901C99001524FD /* rich.mp3 in Resources */,
 				034B5522E4CC4508A2053C8D /* Octicons.ttf in Resources */,
 				F21DDF73F92F46B595BD8C71 /* Zocial.ttf in Resources */,
+				513800561D901C99001524FD /* bigchina.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -964,6 +996,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 5;
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"~/Documents/FacebookSDK",
@@ -991,6 +1024,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.setdev.donaldsays;
 				PRODUCT_NAME = DonaldSays;
 				PROVISIONING_PROFILE = "";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1000,6 +1034,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"~/Documents/FacebookSDK",
 					"$(PROJECT_DIR)",
@@ -1026,6 +1061,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.setdev.donaldsays;
 				PRODUCT_NAME = DonaldSays;
 				PROVISIONING_PROFILE = "";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

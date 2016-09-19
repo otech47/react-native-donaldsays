@@ -1,9 +1,9 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-    didWin: false,
     electoralVotes: 0,
-    daysToElection: 30
+    daysToElection: 30,
+    didWin: false
 };
 
 export default function reducer(state = initialState, action) {

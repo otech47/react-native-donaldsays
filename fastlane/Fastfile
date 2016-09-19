@@ -1,0 +1,96 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "1.102.0"
+
+default_platform :ios
+
+platform :ios do
+
+  desc "Runs all the tests"
+  lane :test do
+    scan
+  end
+
+  desc "Submit a new Beta Build to Apple TestFlight"
+  desc "This will also make sure the profile is up to date"
+  lane :beta do
+    # UI.important "Important Message"
+    # UI.error "O NO!"
+    # UI.message "Basic blah"
+    answer = UI.select("Would you like to add a Changelog?", ["Yes", "No"])
+    changelog = ask('Type Changelog message:') if answer == "Yes"
+
+    # Do application testing here
+    # Very personal process
+
+    # always get latest certificates/provisioning profiles
+    match(type: 'appstore')
+
+    # Change build number
+    increment_build_number(
+      xcodeproj: "./ios/DonaldSays.xcodeproj"
+    )
+
+    gym(
+      scheme: "DonaldSays",
+      project: "./ios/DonaldSays.xcodeproj"
+      # hypothetically could be a workspace
+      # especially if you bring in pods!
+      # workspace: "./ios/AppName.xcworkspace"
+    )
+
+    # Sometimes itunes email is different!
+    if changelog
+      pilot(username: "otech47@gmail.com", changelog: changelog)
+    else
+      pilot(username: "otech47@gmail.com")
+    end
+
+    # Reminder of testers
+    sh "pilot list -u otech47@gmail.com"
+  end
+
+  desc "Deploy a new version to the App Store"
+  lane :release do
+    # match(type: "appstore")
+    # snapshot
+    gym(scheme: "DonaldSays") # Build your app - more options available
+    deliver(force: true)
+    # frameit
+  end
+
+  # You can define as many lanes as you want
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+
+
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+
+# fastlane reports which actions are used
+# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer

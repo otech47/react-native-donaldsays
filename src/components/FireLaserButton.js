@@ -7,15 +7,19 @@ import {
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import * as Animatable from 'react-native-animatable';
-import Sound from 'react-native-sound';
+import timer from 'react-native-timer';
 
 import Base from './Base';
 import Button from './Button';
 
 import { buttons, mixins, colors, variables } from '../styles';
+
+import { hitArObject, removeArObject } from '../actions/augmented';
 import { changeIsAnimating } from '../actions/environment';
 
-const ACTION_TIMER = 300;
+import { playSound, playRandomHitSound, stopSound } from '../scripts/sounds';
+
+const ACTION_TIMER = 200;
 
 class FireLaserButton extends Base {
     constructor(props) {
@@ -23,20 +27,16 @@ class FireLaserButton extends Base {
         this.autoBind('fireLaser', 'handleRapidFireStart', 'handleRapidFireCancel', 'startLaserAnimation');
         this.state = {
             showLaser: true,
-            rapidFire: true,
-            sounds: {
-                laser: new Sound('laser.wav', Sound.MAIN_BUNDLE)
-            }
+            rapidFire: true
         };
     }
     componentWillUnmount() {
-        clearTimeout();
+        console.log('FireLaserButton: componentWillUnmount')
+        timer.clearTimeout(this, 'laserWait');
     }
     startLaserAnimation() {
         this.props.changeIsAnimating(true);
-        setTimeout(() => {
-            this.props.changeIsAnimating(false);
-        }, 150);
+        
         this.refs.laser.transition({
             top: variables.SCREEN_HEIGHT / 2,
             height: variables.SCREEN_HEIGHT / 2,
@@ -46,6 +46,23 @@ class FireLaserButton extends Base {
             height: 0,
             width: 1
         }, 150, 'ease-out');
+        timer.setTimeout(this, 'laserWait', () => {
+            this.props.changeIsAnimating(false);
+            this.props.arObjects.map((arObj, index) => {
+                if(
+                    (arObj.startingPosX + this.props.xOffset) >= (variables.CROSSHAIRS_POSITION_LEFT - variables.CROSSHAIRS_SIZE / 2)
+                    &&
+                    (arObj.startingPosX + this.props.xOffset) <= (variables.CROSSHAIRS_POSITION_RIGHT - variables.CROSSHAIRS_SIZE / 2)
+                    &&
+                    (arObj.startingPosY + this.props.yOffset) >= (variables.CROSSHAIRS_POSITION_TOP - variables.CROSSHAIRS_SIZE / 2)
+                    &&
+                    (arObj.startingPosY + this.props.yOffset) <= (variables.CROSSHAIRS_POSITION_BOTTOM - variables.CROSSHAIRS_SIZE / 2)
+                ) {
+                    playRandomHitSound();
+                    this.props.hitArObject(index);
+                }
+            })
+        }, 150);
         
     }
     fireLaser() {
@@ -55,15 +72,15 @@ class FireLaserButton extends Base {
 
         if(this.state.rapidFire) {
             this.props.showLaser && this.startLaserAnimation();
-            this.state.sounds.laser.stop();
-            this.state.sounds.laser.play();
+            stopSound('laser');
+            playSound('laser');
             setTimeout(() => {
                 this.state.rapidFire && this.fireLaser();
-            }, 200);
+            }, ACTION_TIMER);
         } else {
             this.props.showLaser && this.startLaserAnimation();
-            this.state.sounds.laser.stop();
-            this.state.sounds.laser.play();
+            stopSound('laser');
+            playSound('laser');
         }
     }
     handleRapidFireStart() {
@@ -122,8 +139,9 @@ const styles = StyleSheet.create({
 
 
 
-function mapStateToProps({ environment }) {
+function mapStateToProps({ augmented, environment }) {
     return {
+        ...augmented,
         ...environment
     };
 }
@@ -131,6 +149,8 @@ function mapStateToProps({ environment }) {
 function mapDispatchToProps(dispatch) {
     return {
         changeIsAnimating: (isAnimating) => dispatch(changeIsAnimating(isAnimating)),
+        hitArObject: (arObjIndex) => dispatch(hitArObject(arObjIndex)),
+        removeArObject: (arObjIndex) => dispatch(removeArObject(arObjIndex))
     };
 }
 

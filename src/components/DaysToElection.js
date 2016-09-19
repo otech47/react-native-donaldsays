@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import timer from 'react-native-timer';
 
 import Base from './Base';
 
@@ -14,12 +15,15 @@ import { mixins, colors, variables } from '../styles';
 
 import { gameOver, subtractDayToElection } from '../actions/game';
 
+import { TIME_TO_NEXT_DAY } from '../constants';
+
 class DaysToElection extends Base {
     constructor(props) {
         super(props);
     }
     componentWillUnmount() {
         console.log('DaysToElection componentWillUnmount')
+        timer.clearInterval(this, 'daysToElectionCounter');
 
     }
     shouldComponentUpdate(nextProps) {
@@ -28,11 +32,13 @@ class DaysToElection extends Base {
     componentDidUpdate(prevProps) {
         if(this.props.daysToElection <= 0) {
             this.props.gameOver(true);
+            timer.clearInterval(this, 'daysToElectionCounter');
             Actions.GameOver({ type: 'reset' });
         } else if(!this.props.paused) {
-            setTimeout(() => {
+            timer.clearInterval(this, 'daysToElectionCounter');
+            timer.setInterval(this, 'daysToElectionCounter', () => {
                 this.props.subtractDayToElection();
-            }, 100);
+            }, TIME_TO_NEXT_DAY)
         }
     }
     render() {
@@ -45,7 +51,6 @@ class DaysToElection extends Base {
                 </Text>
                 <Text style={styles.text}>Days to Election</Text>
             </View>
-            
         );
     }
 }
@@ -58,7 +63,8 @@ const styles = StyleSheet.create({
         top: 0,
         left: variables.SCREEN_WIDTH * .55,
         width: variables.SCREEN_WIDTH * .45,
-        padding: variables.SCREEN_WIDTH * .05,
+        paddingHorizontal: variables.SCREEN_WIDTH * .05,
+        paddingVertical: variables.SCREEN_HEIGHT * .05,
         backgroundColor: colors.darkGrayTransparent,
     },
     days: {
