@@ -6,6 +6,7 @@ import {
 } from '../constants';
 
 const initialState = {
+    arExplode: false,
     arObjects: [
     ],
     gyroX: 0,
@@ -24,51 +25,32 @@ export default function reducer(state = initialState, action) {
                     action.arObject
                 ]
             }
+        case types.AR_EXPLODE:
+            return {
+                ...state,
+                arExplode: action.arExplode
+            }
         case types.CLEAR_AR_OBJECTS:
             return {
-                ...state,
+                arExplode: false,
+                arObjects: [],
+                gyroX: 0,
+                gyroY: 0,
                 xOffset: 0,
-                yOffset: 0,
-                arObjects: []
-            }
-        case types.HIT_AR_OBJECT:
-            
-            let arToChange = state.arObjects[action.arObjectIndex];
-            let changedAr = {
-                hit: true,
-                imageUrl: arToChange.imageUrl,
-                startingPosX: arToChange.startingPosX,
-                startingPosY: arToChange.startingPosY
-            };
-            let slicedAndChanged = [
-                ...state.arObjects.slice(0, action.arObjectIndex),
-                changedAr,
-                ...state.arObjects.slice(action.arObjectIndex + 1)
-            ]
-            console.log('HIT_AR_OBJECT')
-            console.log('arObjects: ')
-            console.log(state.arObjects)
-
-            console.log('arObjectIndex: ' + action.arObjectIndex)
-            console.log('slicedAndChanged: ')
-            console.log(slicedAndChanged)
-
-            return {
-                ...state,
-                arObjects: slicedAndChanged
+                yOffset: 0
             }
         case types.REMOVE_AR_OBJECT:
-            console.log('REMOVE_AR_OBJECT')
+            // console.log('REMOVE_AR_OBJECT')
 
-            console.log('arObjects: ')
-            console.log(state.arObjects)
+            // console.log('arObjects: ')
+            // console.log(state.arObjects)
 
-            console.log('arObjectIndex: ' + action.arObjectIndex)
-            console.log('sliced: ')
-            console.log([
-                    ...state.arObjects.slice(0, action.arObjectIndex),
-                    ...state.arObjects.slice(action.arObjectIndex + 1)
-                ])
+            // console.log('arObjectIndex: ' + action.arObjectIndex)
+            // console.log('sliced: ')
+            // console.log([
+            //         ...state.arObjects.slice(0, action.arObjectIndex),
+            //         ...state.arObjects.slice(action.arObjectIndex + 1)
+            //     ])
 
             return {
                 ...state,

@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -40,6 +39,8 @@
 		5138005A1D901C99001524FD /* oyaye.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 513800531D901C99001524FD /* oyaye.mp3 */; };
 		5138005B1D901C99001524FD /* rich.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 513800541D901C99001524FD /* rich.mp3 */; };
 		5138005C1D901C99001524FD /* titties.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 513800551D901C99001524FD /* titties.m4a */; };
+		513800831D90B749001524FD /* logo180.png in Resources */ = {isa = PBXBuildFile; fileRef = 513800821D90B749001524FD /* logo180.png */; };
+		513800981D90B951001524FD /* logo180.png in Resources */ = {isa = PBXBuildFile; fileRef = 513800971D90B951001524FD /* logo180.png */; };
 		5153DF7B1D5BB0C00078C0A5 /* libRNMotionManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153DF771D5BB08F0078C0A5 /* libRNMotionManager.a */; };
 		612765C26785496EB7A16C53 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFFE2918C7E7440698F2BF0C /* FontAwesome.ttf */; };
 		6793E0501D3D7696009AC990 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6793E04F1D3D767F009AC990 /* libART.a */; };
@@ -237,6 +238,8 @@
 		513800531D901C99001524FD /* oyaye.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = oyaye.mp3; sourceTree = "<group>"; };
 		513800541D901C99001524FD /* rich.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rich.mp3; sourceTree = "<group>"; };
 		513800551D901C99001524FD /* titties.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = titties.m4a; sourceTree = "<group>"; };
+		513800821D90B749001524FD /* logo180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo180.png; path = DonaldSays/Images.xcassets/AppIcon.appiconset/logo180.png; sourceTree = "<group>"; };
+		513800971D90B951001524FD /* logo180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo180.png; path = DonaldSays/Images.xcassets/AppIcon.appiconset/logo180.png; sourceTree = "<group>"; };
 		5153DF611D5BB08F0078C0A5 /* RNMotionManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMotionManager.xcodeproj; path = "../node_modules/react-native-motion-manager/RNMotionManager.xcodeproj"; sourceTree = "<group>"; };
 		619E4A23ED7244A498BC4DA4 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		6793E04A1D3D767F009AC990 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
@@ -379,6 +382,7 @@
 				CFFE2918C7E7440698F2BF0C /* FontAwesome.ttf */,
 				446FDCC283174D5887FD7203 /* Foundation.ttf */,
 				8B892C9517784A888DF42EB5 /* Ionicons.ttf */,
+				513800821D90B749001524FD /* logo180.png */,
 				9CC0F24C5AC64B9B8A5DF470 /* MaterialIcons.ttf */,
 				8B5677DD041947ECAF5D7671 /* Octicons.ttf */,
 				619E4A23ED7244A498BC4DA4 /* Zocial.ttf */,
@@ -387,6 +391,7 @@
 				5116DE3F1D8AF33F0049DE5B /* fired.mp3 */,
 				510F5D381D89BACD00C52000 /* win.wav */,
 				510F5CBA1D88B2D900C52000 /* landingvideo.mp4 */,
+				513800971D90B951001524FD /* logo180.png */,
 				5138004F1D901C99001524FD /* bigchina.mp3 */,
 				513800501D901C99001524FD /* bomb.mp3 */,
 				513800511D901C99001524FD /* founder.m4a */,
@@ -840,10 +845,12 @@
 				510F5CBB1D88B35A00C52000 /* landingvideo.mp4 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				513800831D90B749001524FD /* logo180.png in Resources */,
 				4550A7D9640C4320A334518D /* Entypo.ttf in Resources */,
 				510F5D391D89BACD00C52000 /* lose.wav in Resources */,
 				5138005C1D901C99001524FD /* titties.m4a in Resources */,
 				513800591D901C99001524FD /* mexicans.m4a in Resources */,
+				513800981D90B951001524FD /* logo180.png in Resources */,
 				513800571D901C99001524FD /* bomb.mp3 in Resources */,
 				C172BE0B2A12486885F1BF95 /* EvilIcons.ttf in Resources */,
 				5116DE401D8AF33F0049DE5B /* fired.mp3 in Resources */,
@@ -996,7 +1003,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"~/Documents/FacebookSDK",
@@ -1034,7 +1041,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"~/Documents/FacebookSDK",
 					"$(PROJECT_DIR)",

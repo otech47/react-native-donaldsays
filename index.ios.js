@@ -7,4 +7,4 @@ import React, {
 
 import App from './src/components/App';
 
-AppRegistry.registerComponent('Setcoins', () => App);
+AppRegistry.registerComponent('DonaldSays', () => App);

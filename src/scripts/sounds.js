@@ -17,12 +17,12 @@ let sounds = {
 };
 
 export function playSound(name) {
-    sounds.laser.setVolume(0.01);
+    sounds.laser.setVolume(0.03);
     sounds[name].play();
 }
 
 export function playRandomHitSound() {
-    sounds.laser.setVolume(0.01);
+    sounds.laser.setVolume(0.03);
     let index = Math.floor(Math.random() * sounds.hits.length)
     sounds.hits[index].play();
 }

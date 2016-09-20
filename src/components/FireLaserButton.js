@@ -14,7 +14,7 @@ import Button from './Button';
 
 import { buttons, mixins, colors, variables } from '../styles';
 
-import { hitArObject, removeArObject } from '../actions/augmented';
+import { explodeArObject, removeArObject } from '../actions/augmented';
 import { changeIsAnimating } from '../actions/environment';
 
 import { playSound, playRandomHitSound, stopSound } from '../scripts/sounds';
@@ -33,6 +33,9 @@ class FireLaserButton extends Base {
     componentWillUnmount() {
         console.log('FireLaserButton: componentWillUnmount')
         timer.clearTimeout(this, 'laserWait');
+        timer.clearTimeout(this, 'explode');
+        this.props.changeIsAnimating(false);
+        this.props.explodeArObject(false);
     }
     startLaserAnimation() {
         this.props.changeIsAnimating(true);
@@ -59,7 +62,12 @@ class FireLaserButton extends Base {
                     (arObj.startingPosY + this.props.yOffset) <= (variables.CROSSHAIRS_POSITION_BOTTOM - variables.CROSSHAIRS_SIZE / 2)
                 ) {
                     playRandomHitSound();
-                    this.props.hitArObject(index);
+                    this.props.removeArObject(index);
+                    this.props.explodeArObject(true);
+                    timer.clearTimeout(this, 'explode')
+                    timer.setTimeout(this, 'explode', () => {
+                        this.props.explodeArObject(false);
+                    }, 100);
                 }
             })
         }, 150);
@@ -74,7 +82,8 @@ class FireLaserButton extends Base {
             this.props.showLaser && this.startLaserAnimation();
             stopSound('laser');
             playSound('laser');
-            setTimeout(() => {
+            timer.clearInterval(this, 'fireLaser');
+            timer.setInterval(this, 'fireLaser', () => {
                 this.state.rapidFire && this.fireLaser();
             }, ACTION_TIMER);
         } else {
@@ -90,7 +99,7 @@ class FireLaserButton extends Base {
         this.fireLaser();
     }
     handleRapidFireCancel() {
-        clearTimeout();
+        timer.clearInterval(this, 'fireLaser');
         this.setState({ rapidFire: false });
     }
     render() {
@@ -149,7 +158,7 @@ function mapStateToProps({ augmented, environment }) {
 function mapDispatchToProps(dispatch) {
     return {
         changeIsAnimating: (isAnimating) => dispatch(changeIsAnimating(isAnimating)),
-        hitArObject: (arObjIndex) => dispatch(hitArObject(arObjIndex)),
+        explodeArObject: (arObjIndex) => dispatch(explodeArObject(arObjIndex)),
         removeArObject: (arObjIndex) => dispatch(removeArObject(arObjIndex))
     };
 }

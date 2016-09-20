@@ -1,9 +1,9 @@
 export const ADD_AR_OBJECT = 'ADD_AR_OBJECT';
 export const ADD_VOTE = 'ADD_VOTE';
+export const AR_EXPLODE = 'AR_EXPLODE';
 export const CHANGE_IS_ANIMATING = 'CHANGE_IS_ANIMATING';
 export const CLEAR_AR_OBJECTS = 'CLEAR_AR_OBJECTS';
 export const GAME_OVER = 'GAME_OVER';
-export const HIT_AR_OBJECT = 'HIT_AR_OBJECT';
 export const FOCUS = 'FOCUS';
 export const INSTRUCTIONS_OVERLAY = 'INSTRUCTIONS_OVERLAY';
 export const PLAY_FIRST_TIME = 'PLAY_FIRST_TIME';

@@ -17,7 +17,7 @@ import ElectoralVotes from './ElectoralVotes';
 
 import * as fonts from '../fonts';
 import { buttons, mixins, colors, variables } from '../styles';
-import { HARAMBE_SHIRT_LINK } from '../constants';
+import { APP_SHARE_LINK, HARAMBE_SHIRT_LINK } from '../constants';
 
 import { playSound, stopSound } from '../scripts/sounds';
 
@@ -45,7 +45,7 @@ class GameOver extends Base {
         let shareOptions = {
             title: 'DonaldSays',
             message: 'DonaldSays',
-            url: 'https://play.google.com/store/apps/details?id=com.setdev.donaldsays',
+            url: APP_SHARE_LINK,
             subject: 'Check out DonaldSays...'
         };
         Share.open(shareOptions);

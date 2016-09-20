@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import {
     DeviceEventEmitter,
+    Image,
     StyleSheet,
     Text,
     View
@@ -49,22 +50,16 @@ class ArGameDisplay extends Base {
         
     }
     componentDidMount() {
-        this.props.resetGame();
         this.props.clearArObjects();
-        console.log('componentDidMount')
+        this.props.resetGame();
+        Gyroscope.stopGyroUpdates();
         Gyroscope.setGyroUpdateInterval(0.05); // in seconds
         DeviceEventEmitter.addListener('GyroData', this.props.updateGyroData);
-        Gyroscope.startGyroUpdates();
         this.countDown();
-        console.log('top: ' + variables.CROSSHAIRS_POSITION_TOP)
-        console.log('bottom: ' + variables.CROSSHAIRS_POSITION_BOTTOM)
-        console.log('left: ' + variables.CROSSHAIRS_POSITION_LEFT)
-        console.log('right: ' + variables.CROSSHAIRS_POSITION_RIGHT)
-
     }
     componentWillUnmount() {
-        console.log('ArGameDisplay componentWillUnmount')
         Gyroscope.stopGyroUpdates();
+        this.props.clearArObjects();
         timer.clearInterval(this, 'arObjectGenerator');
         timer.clearInterval(this, 'countdown');
     }
@@ -74,6 +69,14 @@ class ArGameDisplay extends Base {
             this.handleGameStart();
         }
     }
+    shouldComponentUpdate(nextProps, nextState) {
+
+        return (
+            this.props.arExplode !== nextProps.arExplode || 
+            this.state.timeToStart != nextState.timeToStart ||
+            this.props.arObjects.length != nextProps.arObjects.length
+        );
+    }
     countDown() {
         timer.setInterval(this, 'countdown', () => {
             this.setState({
@@ -82,6 +85,7 @@ class ArGameDisplay extends Base {
         }, 1000);
     }
     handleGameStart() {
+        Gyroscope.startGyroUpdates();
         this.props.addElectoralVote();
         this.props.subtractDayToElection();
         this.startArObjectTimer();
@@ -92,8 +96,8 @@ class ArGameDisplay extends Base {
 
         timer.clearInterval(this, 'arObjectGenerator');
         timer.setInterval(this, 'arObjectGenerator', () => {
-            let startingPosX = Math.random() * variables.SCREEN_WIDTH * 2 * (Math.random() > 0.5 ? -1 : 1);
-            let startingPosY = Math.random() * variables.SCREEN_HEIGHT * .75 * (Math.random() > 0.5 ? -1 : 1) + variables.SCREEN_HEIGHT / 4;
+            let startingPosX = Math.random() * variables.SCREEN_WIDTH * .75 * (Math.random() > 0.5 ? -1 : 1);
+            let startingPosY = Math.random() * variables.SCREEN_HEIGHT * .75 * (Math.random() > 0.5 ? -1 : 1) + (variables.SCREEN_HEIGHT);
 
             this.props.addArObject({
                 imageUrl: '../assets/images/trump.png',
@@ -106,6 +110,7 @@ class ArGameDisplay extends Base {
         }, timeToNextAr);
     }
     render() {
+        console.log('ArGamedisplay render: ');
         return (
             <View style={styles.root}>
                 <Camera
@@ -116,7 +121,7 @@ class ArGameDisplay extends Base {
                     aspect={Camera.constants.Aspect.fill}
                 >
                     <View style={styles.arDisplay}>
-                        {this.props.trumpExplode && 
+                        {this.props.arExplode && 
                             <Image
                                 source={require('../assets/images/trumpexplode.png')}
                                 resizeMode='contain'
@@ -226,7 +231,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         bottom: variables.SCREEN_HEIGHT / 2,
-        width: variables.SCREEN_WIDTH
+        width: variables.SCREEN_WIDTH,
+        paddingBottom: 8
     },
     preview: {
         position: 'absolute',

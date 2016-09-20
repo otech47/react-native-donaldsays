@@ -21,11 +21,11 @@ export function clearArObjects() {
     }
 }
 
-export function hitArObject(arObjectIndex) {
+export function explodeArObject(arExplode) {
     return dispatch => {
         dispatch({
-            type: types.HIT_AR_OBJECT,
-            arObjectIndex
+            type: types.AR_EXPLODE,
+            arExplode
         });
     }
 }

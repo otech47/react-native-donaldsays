@@ -31,14 +31,6 @@ class FloatingArObject extends Base {
             offScreenRight: false
         }
     }
-    componentDidUpdate(prevProps) {
-        if(this.props.hit) {
-            console.log('remove now')
-            timer.setTimeout(this, 'remove', () => {
-                this.props.removeArObject(this.props.index);
-            }, 100);
-        }
-    }
     componentWillReceiveProps(nextProps) {
         if((nextProps.startingPosX + nextProps.xOffset) < 0) {
             this.setState({ offScreenLeft: true });
@@ -56,7 +48,6 @@ class FloatingArObject extends Base {
         return (
             this.props.xOffset != nextProps.xOffset || 
             this.props.yOffset != nextProps.yOffset ||
-            this.props.hit != nextProps.hit ||
             this.props.arObjects.length != nextProps.arObjects.length
         )
     }
@@ -79,11 +70,7 @@ class FloatingArObject extends Base {
                 }
 
                 <Image
-                    source={this.props.hit ? 
-                        require('../assets/images/trumpexplode.png')
-                        :
-                        require('../assets/images/trumpface.png')
-                    }
+                    source={require('../assets/images/trumpface.png')}
                     resizeMode='contain'
                     style={[
                         styles.arTarget,

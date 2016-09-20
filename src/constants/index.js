@@ -5,15 +5,16 @@ const API_BASE_URL = 'https://api.setmine.com';
 
 export const API_ROOT = `${API_BASE_URL}/v/${API_VERSION}/`;
 export const GRAPH_API_ROOT = `${API_ROOT}/graph`;
-export const HARAMBE_SHIRT_LINK = 'https://teespring.com/dems-out-for-harambe-2016#pid=2&cid=576&sid=front';
+export const HARAMBE_SHIRT_LINK = 'http://setdev.io/justiceforharambe';
+export const APP_SHARE_LINK = 'http://setdev.io/donaldsaysapp';
 
 export const GYRO_MOVE_THRESHOLD_X = .055;
 export const GYRO_MOVE_THRESHOLD_Y = .055;
 
-export const MOVE_FACTOR_X = 45;
-export const MOVE_FACTOR_Y = MOVE_FACTOR_X * .8;
+export const MOVE_FACTOR_Y = 40;
+export const MOVE_FACTOR_X = MOVE_FACTOR_Y * .8;
 
-export const TIME_TO_NEXT_AR= 2000; // Decrease for more trump heads
-export const TIME_TO_NEXT_DAY = 800; // Increase for longer games
-export const TIME_TO_NEXT_VOTE = 20000; // Decrease for faster electoral votes
-export const AR_COUNT_TIME_FACTOR = 3.5; // Decrease for faster electoral votes per trump head
+export const TIME_TO_NEXT_AR= 1400; // Decrease for more trump heads
+export const TIME_TO_NEXT_DAY = 1000; // Increase for longer games
+export const TIME_TO_NEXT_VOTE = 200; // Decrease for faster electoral votes
+export const AR_COUNT_TIME_FACTOR = 4.3; // Decrease for faster electoral votes per trump head

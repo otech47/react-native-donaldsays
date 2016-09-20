@@ -76,12 +76,12 @@ class App extends Base {
                     <Scene
                         key='LandingPage'
                         component={LandingPage}
-                        
+                        initial
                     />
                     <Scene
                         key='ArGameDisplay'
                         component={ArGameDisplay}
-                        initial
+                        
                     />
                     <Scene
                         key='GameOver'
