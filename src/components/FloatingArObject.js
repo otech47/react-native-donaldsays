@@ -70,7 +70,7 @@ class FloatingArObject extends Base {
                 }
 
                 <Image
-                    source={require('../assets/images/trumpface.png')}
+                    source={require('../assets/images/assface.png')}
                     resizeMode='contain'
                     style={[
                         styles.arTarget,

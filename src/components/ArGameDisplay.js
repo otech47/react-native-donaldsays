@@ -31,11 +31,11 @@ import { addArObject, clearArObjects, updateGyroData } from '../actions/augmente
 import { addElectoralVote, resetGame, subtractDayToElection } from '../actions/game';
 
 import {
-    TIME_TO_NEXT_AR,
     GYRO_MOVE_THRESHOLD_X,
     GYRO_MOVE_THRESHOLD_Y,
     MOVE_FACTOR_X,
-    MOVE_FACTOR_Y
+    MOVE_FACTOR_Y,
+    TIME_TO_NEXT_AR
 } from '../constants';
 
 class ArGameDisplay extends Base {
@@ -96,8 +96,8 @@ class ArGameDisplay extends Base {
 
         timer.clearInterval(this, 'arObjectGenerator');
         timer.setInterval(this, 'arObjectGenerator', () => {
-            let startingPosX = Math.random() * variables.SCREEN_WIDTH * .75 * (Math.random() > 0.5 ? -1 : 1);
-            let startingPosY = Math.random() * variables.SCREEN_HEIGHT * .75 * (Math.random() > 0.5 ? -1 : 1) + (variables.SCREEN_HEIGHT);
+            let startingPosX = Math.random() * variables.SCREEN_WIDTH * (Math.random() > 0.5 ? -1 : 1) + (variables.SCREEN_WIDTH * .5);
+            let startingPosY = Math.random() * variables.SCREEN_HEIGHT * .75 * (Math.random() > 0.5 ? -1 : 1) + (variables.SCREEN_HEIGHT * .8);
 
             this.props.addArObject({
                 imageUrl: '../assets/images/trump.png',
@@ -123,7 +123,7 @@ class ArGameDisplay extends Base {
                     <View style={styles.arDisplay}>
                         {this.props.arExplode && 
                             <Image
-                                source={require('../assets/images/trumpexplode.png')}
+                                source={require('../assets/images/trumpexplode2.png')}
                                 resizeMode='contain'
                                 style={styles.trumpExplode}
                             />

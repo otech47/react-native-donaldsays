@@ -5,6 +5,7 @@ let sounds = {
         new Sound('bigchina.mp3', Sound.MAIN_BUNDLE),
         new Sound('bomb.mp3', Sound.MAIN_BUNDLE),
         new Sound('fired.mp3', Sound.MAIN_BUNDLE),
+        new Sound('grab.mp3', Sound.MAIN_BUNDLE),
         new Sound('oyaye.mp3', Sound.MAIN_BUNDLE),
         new Sound('rich.mp3', Sound.MAIN_BUNDLE),
         new Sound('founder.m4a', Sound.MAIN_BUNDLE),

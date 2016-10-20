@@ -1,4 +1,4 @@
-app_identifier "io.setdev.donaldsays" # The bundle identifier of your app
+app_identifier "io.setdev.donaldsays2" # The bundle identifier of your app
 apple_id "otech47@gmail.com" # Your Apple email address
 
 team_id "7JQM8M6QG2"  # Developer Portal Team ID

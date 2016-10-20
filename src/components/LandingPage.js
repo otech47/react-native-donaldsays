@@ -47,14 +47,14 @@ class LandingPage extends Base {
         return (
             <View style={styles.root}>
 
-                <Video
+                {/* <Video
                     muted
                     repeat
                     resizeMode='cover'
                     onLoad={() => { console.log('video loaded') }}
                     source={{uri: 'landingvideo'}}
                     style={styles.backgroundVideo}
-                />
+                /> */}
 
                 <View style={styles.overlay}>
                     <Text style={styles.header}>DonaldSays</Text>
@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
     root: {
         ...mixins.defaultPage,
         ...mixins.column,
-        ...mixins.center
+        ...mixins.center,
+        backgroundColor: colors.darkGray
     },
     button: {
         ...buttons.play,
@@ -127,8 +128,7 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         height: variables.SCREEN_HEIGHT,
-        width: variables.SCREEN_WIDTH,
-        backgroundColor: colors.darkGrayTransparent
+        width: variables.SCREEN_WIDTH
     }
 });
 
