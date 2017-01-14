@@ -2,7 +2,7 @@
 DonaldSays - an "augmented reality" parody game intended to help combat racism and prevent the apocalypse
 
 ## Setup
-1. `git clone https://github.com/otech47/setcoins-native` and `cd` into the directory, don't forget to `git checkout donaldsays` until we separate the repo
+1. `git clone https://github.com/otech47/react-native-donaldsays` and `cd` into the directory
 2. `npm install`
 3. Read through https://facebook.github.io/react-native/docs/getting-started.html to install the React Native CLI for your OS
 4. `react-native start`
