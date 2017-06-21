@@ -1,5 +1,7 @@
-# DonaldSays (branched from setcoins-native)
+# DonaldSays (branched from setcoins-native) - iOS only 
 DonaldSays - an "augmented reality" parody game intended to help combat racism and prevent the apocalypse
+
+Currently no support for Android, but there is a separate native Java repo for the Android version (https://github.com/otech47/donaldsays) 
 
 ## Setup
 1. `git clone https://github.com/otech47/react-native-donaldsays` and `cd` into the directory
