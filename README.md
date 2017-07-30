@@ -20,3 +20,6 @@ Please create an issue if you run into problems so we can document them and add 
 Thanks!
 
 Feel free to email: oscar@setdev.io
+
+Medium article with a general overview of how this was built:
+[DonaldSays: React Native & Augmented Reality](https://medium.com/@oscarlafarga/donaldsays-react-native-augmented-reality-brought-to-you-by-toptal-5175011885e5)
